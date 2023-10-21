@@ -1,0 +1,13 @@
+appmap_dir: tmp/appmap
+language: python
+name: djangoProject2
+packages:
+- path: pip
+- path: djangoProject2
+- path: setuptools
+- path: django
+- path: asgiref
+- path: wheel
+- path: pkg_resources
+- path: _distutils_hack
+- path: sqlparse
