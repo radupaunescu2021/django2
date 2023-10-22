@@ -47,7 +47,7 @@ class AllEventsListView(generics.ListAPIView):
     filter_backends = (DjangoFilterBackend,)
     filterset_class = EventFilter
 
-#Show only user events
+#Show only  events for a certain user
 class UserCreatedEventsListView(generics.ListAPIView):
     serializer_class = EventSerializer
     permission_classes = [IsAuthenticated]
@@ -63,7 +63,7 @@ class RegistrationListCreateView(generics.ListCreateAPIView):
     serializer_class = RegistrationSerializer
     permission_classes = [IsAuthenticated]
 
-    #Check event is in the future
+    #Check if event is in the future
     def create(self, request, *args, **kwargs):
         event_pk = kwargs.get('event_pk')  # Get the event_pk from the URL
         event = get_object_or_404(Event, pk=event_pk)  # Get the event object
@@ -80,13 +80,13 @@ class RegistrationListCreateView(generics.ListCreateAPIView):
         # Optionally filter registrations by the current user
         return Registration.objects.filter(user=self.request.user)
 
-###Separate view for unregistering
+###Separate view for unregistering from event
 class RegistrationDestroyView(generics.DestroyAPIView):
     queryset = Registration.objects.all()
     serializer_class = RegistrationSerializer
     permission_classes = [IsAuthenticated]
 
-    #Unergister only for future events
+    #Uneregister is available only for future events
     def get_object(self):
         event = get_object_or_404(Event, pk=self.kwargs.get('event_pk'))
         if event.start_date <= timezone.now():
@@ -94,7 +94,7 @@ class RegistrationDestroyView(generics.DestroyAPIView):
         return get_object_or_404(Registration, user=self.request.user, event=event)
 
 
-#Edit events created by the user
+#Edit events created by a ceratin user
 class EventUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer

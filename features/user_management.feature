@@ -1,6 +1,6 @@
-# Created by hamburg at 20.10.2023
-Feature: # Enter feature name here
-  # Enter feature description here
+# Created by radu at 20.10.2023
+Feature: # Creating user and log in
+
 
    Scenario: Creating a new user
     When I send a POST request to "/api/users/" with user data

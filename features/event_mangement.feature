@@ -1,6 +1,6 @@
-# Created by hamburg at 20.10.2023
-Feature: # Enter feature name here
-  # Enter feature description here
+# Created by Radu at 20.10.2023
+Feature: # Event creation,registering etc
+
 
 #User,token creation
 
@@ -97,7 +97,6 @@ Feature: # Enter feature name here
     When I send a GET request to "/api/events/"
     Then I should receive a 200 OK response
     And The response should contain both "Alice's Event" and "Bob's Event"
-
 
 
 

@@ -6,7 +6,7 @@ from .models import Event, Registration
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = '__all__'  # Adjust this to list only necessary fields
+        fields = '__all__'
         extra_kwargs = {
             'password': {'write_only': True}
         }

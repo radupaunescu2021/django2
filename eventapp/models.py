@@ -12,6 +12,7 @@ class Event(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     capacity = models.PositiveIntegerField(default=0)  # 0 for no limit
 
+    #Type fol filetring events
     TYPE_CHOICES = [
         ('SPORT', 'Sport'),
         ('MUSIC', 'Music'),
@@ -23,6 +24,7 @@ class Event(models.Model):
         default='SPORT',  # Optionally provide a default
     )
 
+    #Check if event capacity is reached
     def is_full(self):
         return self.registration_set.count() >= self.capacity if self.capacity > 0 else False
 
