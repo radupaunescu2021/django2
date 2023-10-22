@@ -1,5 +1,5 @@
 django
 djangorestframework
-rest_framework_swagger
+django_rest_swagger
 drf-yasg
 behave-django
