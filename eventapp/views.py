@@ -1,5 +1,10 @@
+import django_filters
 from django.utils import timezone
+
+from django_filters.rest_framework import DjangoFilterBackend
+
 from rest_framework import generics, status
+
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
@@ -14,28 +19,41 @@ class UserListCreateView(generics.ListCreateAPIView):
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
 
-
+##Filter events by type class
+class EventFilter(django_filters.FilterSet):
+    class Meta:
+        model = Event
+        fields = ['type']
 
 class EventListCreateView(generics.ListCreateAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = [IsAuthenticated]  # Require authentication for this view
 
+    #FIltering by type
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = EventFilter
     def perform_create(self, serializer):
         # Set the created_by field to the currently authenticated user
         serializer.save(created_by=self.request.user)
+
 
 #Show all events
 class AllEventsListView(generics.ListAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = [IsAuthenticated]
+    #Filtering by type
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = EventFilter
 
 #Show only user events
 class UserCreatedEventsListView(generics.ListAPIView):
     serializer_class = EventSerializer
     permission_classes = [IsAuthenticated]
-
+    #Filtering by type
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = EventFilter
     def get_queryset(self):
         # Filter the queryset to include only events created by the currently authenticated user
         return Event.objects.filter(created_by=self.request.user)
