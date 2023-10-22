@@ -10,12 +10,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 What things you need to install and how to install them.
 
-- Python 3.9
-- Django
-- Django Rest Framework
-- Simple JWT
+- django
+- djangorestframework
+- rest_framework_swagger
 - drf-yasg
-
+- behave-django
+   
 ### Installing
 
 A step by step series of examples that tell you how to get a development environment running.
