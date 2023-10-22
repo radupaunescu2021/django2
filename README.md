@@ -109,6 +109,29 @@ curl -X DELETE -H "Authorization: Bearer <your_token>" \
      http://localhost:8000/api/events/1/register/
 
 
+### Filtering Events by Type
+
+The API provides the ability to filter events based on their type. This is achieved through the use of the `event_type` query parameter on the relevant endpoints.
+
+### Usage:
+
+To filter events by a specific type, you can append the `event_type` query parameter to the endpoint URL, followed by the desired event type.
+
+Example:
+
+```http
+GET /api/events/?event_type=Music
+This request will return all events of type 'Music'.
+
+Available Event Types:
+Music
+Sports
+Politics
+
+Example Request using cURL:
+curl -X GET "http://localhost:8000/api/events/?event_type=Music" -H "accept: application/json"
+
+
 ### Running the Tests
 Tests have been created using BEHAVE BDD Framework
 

@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "eventapp",
     "drf_yasg",
-    "rest_framework_swagger"
+    "rest_framework_swagger",
+    "behave_django"
 ]
 
 MIDDLEWARE = [

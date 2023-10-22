@@ -20,27 +20,32 @@ Feature: # Enter feature name here
     #Registering,unregistering
   Scenario: Registering for an event
     Given I am an authenticated user
-    When I send a POST request to register to "/api/events/1/register/"
+    When I send a POST request to "/api/events/" with event data
     Then I should receive a 201 Created response
+    #When I send a POST request to register to "/api/events/2/register/"
+    When I send a POST request to register to event created previously
+    Then I should receive a 201 Created response
+
+  Scenario: Unregistering from an event
+    Given I am an authenticated user
+    When I send a POST request to "/api/events/" with event data
+    Then I should receive a 201 Created response
+    When I send a POST request to register to event created previously
+    Then I should receive a 201 Created response
+    When I send a DELETE request to unregister to the event created previously
+    Then I should receive a 204 No Content response
 
 
   Scenario: Registering for an event with full capacity of 1
     Given I am an authenticated user with username "alice" and password "password1"
     When I send a POST request to "/api/events/" to create event with name "Popular Event" description "Music" start date "2023-12-25T10:00:00Z" end date "2023-12-26T10:00:00Z" capacity "1"
-    #When I send a POST request to register to "/api/events/1/register/"
-    When I send a POST request to register to event created previously"
+    When I send a POST request to register to event created previously
     Then I should receive a 201 Created response
     Given I am an authenticated user with username "bob" and password "password2"
-    #When I send a POST request to register to "/api/events/1/register/"
-    When I send a POST request to register to event created previously"
+    When I send a POST request to register to event created previously
     Then I should receive a 400 Bad Request response
     And The response should contain "The event has reached its maximum capacity."
 
-
-  Scenario: Unregistering from an event
-    Given I am an authenticated user
-    When I send a DELETE request to "/api/events/1/unregister/"
-    Then I should receive a 204 No Content response
 
   ####Listing events created by the user
 

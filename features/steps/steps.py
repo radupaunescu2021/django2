@@ -102,9 +102,10 @@ def step_impl(context, url):
     response = context.client.post(url, {'name': 'Test Event', 'description': 'Test Description'}, format='json')
     context.response = response
 
-@then('I should receive a 201 Created response')
-def step_impl(context):
-    assert context.response.status_code == 201
+#@then('I should receive a 201 Created response')
+#def step_impl(context):
+ #   print("Status responde code " +str(context.response.status_code))
+  #  assert context.response.status_code == 201
 
 
 
@@ -114,11 +115,18 @@ def step_impl(context, url):
     response = context.client.post(url, {
         "name": "Test Event",
         "description": "Test Description",
-        "start_date": "2023-11-25T10:00:00Z",
-        "end_date": "2023-11-25T18:00:00Z"
+        "start_date": "2024-11-25T10:00:00Z",
+        "end_date": "2024-11-25T18:00:00Z"
         # ... other event data ...
     }, format='json')
     context.response = response
+    response_data = response.json()  # Assuming response is an object with a json() method
+    print("Event create"+str(response_data))
+    logging.info("Event create"+str(response_data))
+    #Save event id for later use
+    event_id = response_data['id']
+    context.event_id = event_id
+
 
 
 @when('I send a POST request to "{url}" to create event with name "{name}" description "{description}" start date "{start_date}" end date "{end_date}" capacity "{capacity}')
@@ -169,18 +177,22 @@ def step_impl(context, url):
 
 @when('I send a POST request to register to "{url}"')
 def step_impl(context, url):
+    response = context.client.get(url)
+    print("Events"+ str(response.json()))
     response = context.client.post(url)
     context.response = response
+    print("registering to event"+ str(context.response))
 
 
-@when('I send a POST request to register to event created previously"')
+@when('I send a POST request to register to event created previously')
 def step_impl(context):
     url="/api/events/"+str(context.event_id)+"/register/"
     response = context.client.post(url)
     context.response = response
 
-@when('I send a DELETE request to "{url}"')
-def step_impl(context, url):
+@when('I send a DELETE request to unregister to the event created previously')
+def step_impl(context):
+    url = "/api/events/" + str(context.event_id) + "/unregister/"
     response = context.client.delete(url)
     context.response = response
 
@@ -242,3 +254,4 @@ def step_impl(context):
 def step_impl(context, message):
     response_data = context.response.json()
     assert message in response_data, f"Expected '{message}' to be in response, but got '{error_message}'"
+
