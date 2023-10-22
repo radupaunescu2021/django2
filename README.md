@@ -59,7 +59,7 @@ curl -X POST -H "Content-Type: application/json" \
      -d '{"username":"newuser", "password":"newpass"}' \
      http://localhost:8000/api/users/
 
-User Login and Authentication
+### User Login and Authentication
 To log in and obtain a token, send a POST request to /api/token/ with your credentials:
 {
     "username": "newuser",
@@ -72,7 +72,7 @@ curl -X POST -H "Content-Type: application/json" \
      -d '{"username":"newuser", "password":"newpass"}' \
      http://localhost:8000/api/token/
 
-Event Creation
+### Event Creation
 To create a new event, send a POST request to /api/events/ with the event data:
 
 {
@@ -91,7 +91,7 @@ curl -X POST -H "Content-Type: application/json" \
      http://localhost:8000/api/events/
 
 
-Event Registration
+### Event Registration
 
 To register for an event, send a POST request to /api/events/<event_id>/register/:
 
