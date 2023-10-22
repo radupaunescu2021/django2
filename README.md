@@ -120,13 +120,13 @@ To filter events by a specific type, you can append the `event_type` query param
 Example:
 
 ```http
-GET /api/events/?event_type=Music
+GET /api/events/?event_type=MUSIC
 This request will return all events of type 'Music'.
 
 Available Event Types:
-Music
-Sports
-Politics
+MUSIC
+SPORT
+POLITICS
 
 Example Request using cURL:
 curl -X GET "http://localhost:8000/api/events/?event_type=Music" -H "accept: application/json"
@@ -135,7 +135,9 @@ curl -X GET "http://localhost:8000/api/events/?event_type=Music" -H "accept: app
 ### Running the Tests
 Tests have been created using BEHAVE BDD Framework
 
-python manage.py test
+python3.9 manage.py behave -i event_management.feature
+python3.9 manage.py behave
+
 
 ## API Documentation (or Exploring the API)
 
