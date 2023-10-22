@@ -4,3 +4,4 @@ django_rest_swagger
 djangorestframework-simplejwt
 drf-yasg
 behave-django
+django-filter
