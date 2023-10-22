@@ -27,18 +27,34 @@ git clone https://github.com/radupaunescu2021/django2.git
 Navigate to the project directory:
 cd django
 
+Create virtual environment 
+
+python3.9 -m venv myenv
+source myenv/bin/activate
+
+
 Install the required dependencies:
 
 pip install -r requirements.txt
 
 Apply migrations:
 
+python3.9 manage.py makemigrations
 python3.9 manage.py migrate
 
 Run the server:
 
 python3.9 manage.py runserver
 
+
+Open another terminal:
+
+Acivate virtual env
+
+source myenv/bin/activate
+
+Run tests
+python3.9 manage.py behave -i event_management.feature
 
 ### Usage
 
